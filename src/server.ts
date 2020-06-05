@@ -39,8 +39,6 @@ const jwtHandler = async (req: Request, res: Response, next: NextFunction) => {
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
-  app.use(jwtHandler);
-
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
@@ -56,7 +54,7 @@ const jwtHandler = async (req: Request, res: Response, next: NextFunction) => {
 
   /**************************************************************************** */
 
-  app.get("/filteredimage", async (req: Request, res: Response) => {
+  app.get("/filteredimage", jwtHandler, async (req: Request, res: Response) => {
     try {
       const { image_url = "" } = req.query;
       const imageURL = decodeURIComponent(image_url);
